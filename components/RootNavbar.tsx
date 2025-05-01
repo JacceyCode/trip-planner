@@ -42,9 +42,7 @@ const RootNavbar = () => {
           {user.status === "admin" && (
             <Link
               to="/dashboard"
-              className={cn("text-base font-normal text-white", {
-                "text-dark-100": location.pathname.startsWith("/travel"),
-              })}
+              className="text-base font-medium text-dark-100"
             >
               Admin Panel
             </Link>

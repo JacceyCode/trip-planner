@@ -72,6 +72,8 @@ export const action = async ({ request }: ActionFunctionArgs) => {
       })
       .generateContent([prompt]);
 
+    if (!textResult) return;
+
     const trip = parseMarkdownToJson(textResult.response.text());
 
     const imageResponse = await fetch(

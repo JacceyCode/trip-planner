@@ -1,11 +1,11 @@
-import { Link, type LoaderFunctionArgs, useSearchParams } from "react-router";
 import { ButtonComponent } from "@syncfusion/ej2-react-buttons";
-import { cn, parseTripData } from "~/lib/utils";
-import { Header, TripCard } from "../../../components";
-import { getAllTrips } from "~/appwrite/trips";
-import { useState } from "react";
-import { getUser } from "~/appwrite/auth";
 import { PagerComponent } from "@syncfusion/ej2-react-grids";
+import { Header, TripCard } from "components";
+import { useState } from "react";
+import { Link, type LoaderFunctionArgs, useSearchParams } from "react-router";
+import { getUser } from "~/appwrite/auth";
+import { getAllTrips } from "~/appwrite/trips";
+import { cn, parseTripData } from "~/lib/utils";
 import type { Route } from "./+types/travel-page";
 
 const FeaturedDestination = ({
@@ -190,6 +190,8 @@ const TravelPage = ({ loaderData }: Route.ComponentProps) => {
         <Header
           title="Handpicked Trips"
           description="Browse well-planned trips designes for your travel style"
+          ctaText="Create Your Trip"
+          ctaUrl="/travel/create"
         />
 
         <div className="trip-grid">

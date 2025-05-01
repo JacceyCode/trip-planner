@@ -1,4 +1,4 @@
-import { ID, OAuthProvider, Query } from "appwrite";
+import { AppwriteException, ID, OAuthProvider, Query } from "appwrite";
 import { account, appwriteConfig, database } from "./client";
 import { redirect } from "react-router";
 
@@ -33,7 +33,15 @@ export const getUser = async () => {
 
     return documents[0];
   } catch (error) {
-    console.error("Error getting user:", error);
+    if (
+      error instanceof AppwriteException &&
+      !(error.code === 401 && error.type === "general_unauthorized_scope")
+    ) {
+      // Log error if not authentication error, else, redirect to sign-in page
+      console.error("Error getting user:", error);
+    }
+
+    return redirect("/sign-in");
   }
 };
 

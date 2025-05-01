@@ -96,6 +96,8 @@ const Dashboard = ({ loaderData }: Route.ComponentProps) => {
       <Header
         title={`Welcome ${user?.name ?? "Guest"} 👋`}
         description="Track activity, trends and popular destination in real time."
+        ctaText="Create New Trip"
+        ctaUrl="/trips/create"
       />
 
       <section className="flex flex-col gap-6">
