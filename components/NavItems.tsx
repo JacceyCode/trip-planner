@@ -1,14 +1,14 @@
 import { cn } from "~/lib/utils";
 import { Link, NavLink, useLoaderData, useNavigate } from "react-router";
 import { sidebarItems } from "~/constants";
-import { logoutUSer } from "~/appwrite/auth";
+import { logoutUser } from "~/appwrite/auth";
 
 const NavItems = ({ handleClick }: { handleClick?: () => void }) => {
   const user = useLoaderData();
   const navigate = useNavigate();
 
   const handleLogout = async () => {
-    await logoutUSer();
+    await logoutUser();
 
     navigate("/sign-in");
   };

@@ -59,7 +59,7 @@ export const getGooglePicture = async (accessToken: string) => {
   }
 };
 
-export const logoutUSer = async () => {
+export const logoutUser = async () => {
   try {
     await account.deleteSession("current");
 
