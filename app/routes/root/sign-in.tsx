@@ -1,4 +1,5 @@
 import { ButtonComponent } from "@syncfusion/ej2-react-buttons";
+import { AppwriteException } from "appwrite";
 import { Link, redirect } from "react-router";
 import { loginWithGoogle } from "~/appwrite/auth";
 import { account } from "~/appwrite/client";
@@ -8,7 +9,13 @@ export async function clientLoader() {
     const user = await account.get();
     if (user.$id) return redirect("/");
   } catch (error) {
-    console.error("Error loading client:", error);
+    if (
+      error instanceof AppwriteException &&
+      !(error.code === 401 && error.type === "general_unauthorized_scope")
+    ) {
+      // Log error if not authentication error
+      console.error("Error loading client:", error);
+    }
   }
 }
 

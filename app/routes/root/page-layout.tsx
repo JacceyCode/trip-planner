@@ -1,3 +1,4 @@
+import { AppwriteException } from "appwrite";
 import { RootNavbar } from "components";
 import { Outlet, redirect } from "react-router";
 import { getExistingUser, storeUserData } from "~/appwrite/auth";
@@ -12,7 +13,14 @@ export async function clientLoader() {
     const existingUser = await getExistingUser(user.$id);
     return existingUser?.$id ? existingUser : await storeUserData();
   } catch (e) {
-    console.log("Error fetching user", e);
+    if (
+      e instanceof AppwriteException &&
+      !(e.code === 401 && e.type === "general_unauthorized_scope")
+    ) {
+      // Log error if not authentication error, else, redirect to sign-in page
+      console.log("Error fetching user", e);
+    }
+
     return redirect("/sign-in");
   }
 }
