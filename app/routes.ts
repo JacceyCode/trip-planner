@@ -20,5 +20,6 @@ export default [
     route("travel/create", "routes/root/create-travel.tsx"),
     route("travel/:tripId", "routes/root/travel-details.tsx"),
     route("travel/:tripId/success", "routes/root/payment-success.tsx"),
+    route("travel/paid-trips", "routes/root/paid-trips.tsx"),
   ]),
 ] satisfies RouteConfig;
