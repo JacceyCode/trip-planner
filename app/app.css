@@ -308,26 +308,26 @@
     }
   }
   .root-nav {
-    @apply flex justify-between gap-4  items-center;
+    @apply flex flex-row justify-between gap-1.5 md:gap-4 items-center;
     a {
-      @apply flex items-center gap-1.5 py-10;
+      @apply flex items-center gap-1.5 py-2 md:py-10;
       h1 {
-        @apply text-base md:text-2xl font-bold text-dark-100;
+        @apply text-sm md:text-2xl font-bold text-dark-100;
       }
     }
     aside {
-      @apply flex gap-4 items-center;
+      @apply flex gap-1.5 md:gap-4 items-center;
       img {
         @apply size-10 rounded-full aspect-square;
       }
     }
   }
   .footer-container {
-    @apply flex justify-between items-center h-full gap-5;
+    @apply flex justify-between items-center h-full md:gap-5;
     a {
       @apply flex items-center gap-1.5 py-10;
       h1 {
-        @apply text-base md:text-2xl font-bold text-dark-100;
+        @apply text-sm md:text-2xl font-bold text-dark-100;
       }
     }
     div {
