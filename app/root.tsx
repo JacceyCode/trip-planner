@@ -1,3 +1,6 @@
+import * as Sentry from "@sentry/react-router";
+import { registerLicense } from "@syncfusion/ej2-base";
+import { GlobalSpinner } from "components";
 import {
   isRouteErrorResponse,
   Links,
@@ -5,9 +8,8 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useNavigation,
 } from "react-router";
-import * as Sentry from "@sentry/react-router";
-
 import type { Route } from "./+types/root";
 import "./app.css";
 
@@ -24,20 +26,24 @@ export const links: Route.LinksFunction = () => [
   },
 ];
 
-import { registerLicense } from "@syncfusion/ej2-base";
-
 registerLicense(import.meta.env.VITE_SYNCFUSION_LICENSE_KEY);
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  const navigation = useNavigation();
+  const isNavigating = Boolean(navigation.location);
+
   return (
     <html lang="en">
       <head>
         <meta charSet="utf-8" />
+        <link rel="icon" type="image/svg+xml" href="/assets/icons/logo.svg" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>TourPlan</title>
         <Meta />
         <Links />
       </head>
       <body>
+        {isNavigating && <GlobalSpinner />}
         {children}
         <ScrollRestoration />
         <Scripts />
@@ -81,4 +87,8 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
       )}
     </main>
   );
+}
+
+export function HydrateFallback() {
+  return <GlobalSpinner />;
 }

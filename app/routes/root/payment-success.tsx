@@ -2,10 +2,20 @@ import { ButtonComponent } from "@syncfusion/ej2-react-buttons";
 import confetti from "canvas-confetti";
 import { useEffect } from "react";
 import { Link, type LoaderFunctionArgs } from "react-router";
+import { updateUserPaidTrips } from "~/appwrite/user";
 import { LEFT_CONFETTI, RIGHT_CONFETTI } from "~/constants";
 import type { Route } from "./+types/payment-success";
+import { updateTripsPaidUsers } from "~/appwrite/trips";
 
-export async function loader({ params }: LoaderFunctionArgs) {
+export async function clientLoader({ params }: LoaderFunctionArgs) {
+  const { tripId } = params;
+
+  if (tripId) {
+    // Avoided using await so as not to block page rendenring
+
+    Promise.all([updateUserPaidTrips(tripId), updateTripsPaidUsers(tripId)]);
+  }
+
   return params;
 }
 

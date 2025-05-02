@@ -2,7 +2,9 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import { ID } from "appwrite";
 import { data, type ActionFunctionArgs } from "react-router";
 import { appwriteConfig, database } from "~/appwrite/client";
-import { parseMarkdownToJson } from "~/lib/utils";
+import { updateUserCreatedTrips } from "~/appwrite/user";
+import { createProduct } from "~/lib/stripe";
+import { parseMarkdownToJson, parseTripData } from "~/lib/utils";
 
 export const action = async ({ request }: ActionFunctionArgs) => {
   const {
@@ -19,6 +21,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   const unsplashApiKey = process.env.UNSPLASH_ACCESS_KEY!;
 
   try {
+    // AI Prompt Message
     const prompt = `Generate a ${numberOfDays}-day travel itinerary for ${country} based on the following user information:
         Budget: '${budget}'
         Interests: '${interests}'
@@ -66,6 +69,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
         ]
     }`;
 
+    // Prompt Response
     const textResult = await genAI
       .getGenerativeModel({
         model: "gemini-2.0-flash",
@@ -74,16 +78,19 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 
     if (!textResult) return;
 
+    // Prompt Parsed Response
     const trip = parseMarkdownToJson(textResult.response.text());
 
     const imageResponse = await fetch(
       `https://api.unsplash.com/search/photos?query=${country} ${interests} ${travelStyle}&client_id=${unsplashApiKey}`
     );
 
+    // Images from Unsplash
     const imageUrls = (await imageResponse.json()).results
       .slice(0, 3)
       .map((result: any) => result.urls?.regular || null);
 
+    // Create Trip in database
     const result = await database.createDocument(
       appwriteConfig.databaseId,
       appwriteConfig.tripCollectionId,
@@ -96,6 +103,42 @@ export const action = async ({ request }: ActionFunctionArgs) => {
       }
     );
 
+    const tripDetail = parseTripData(result.tripDetails) as Trip;
+    const tripPrice = parseInt(tripDetail.estimatedPrice.replace("$", ""), 10);
+
+    // Create and get Stripe Payment link
+    const paymentLink = await createProduct(
+      tripDetail.name,
+      tripDetail.description,
+      imageUrls,
+      tripPrice,
+      result.$id
+    );
+
+    // await database.updateDocument(
+    //   appwriteConfig.databaseId,
+    //   appwriteConfig.tripCollectionId,
+    //   result.$id,
+    //   {
+    //     payment_link: paymentLink.url,
+    //   }
+    // );
+
+    await Promise.all([
+      // Update Trip with Payment link in the Database
+      database.updateDocument(
+        appwriteConfig.databaseId,
+        appwriteConfig.tripCollectionId,
+        result.$id,
+        {
+          payment_link: paymentLink.url,
+        }
+      ),
+      // Update User's created trips with the Trip ID
+      updateUserCreatedTrips(result.$id, userId),
+    ]);
+
+    // Return data
     return data({ id: result.$id });
   } catch (error) {
     console.error("Error generating travel plan: ", error);

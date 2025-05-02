@@ -21,6 +21,11 @@ export const clientLoader = async ({ params }: LoaderFunctionArgs) => {
     getUser(),
   ]);
 
+  // Check if user already paid for trip
+  const tripPaidByUser = (
+    user as unknown as User & { paidTrips: string[]; accountId: string }
+  ).paidTrips.includes(tripId);
+
   return {
     trip,
     allTrips: trips.allTrips.map(({ $id, tripDetails, imageUrls }) => ({
@@ -29,6 +34,7 @@ export const clientLoader = async ({ params }: LoaderFunctionArgs) => {
       imageUrls: imageUrls ?? [],
     })),
     user,
+    tripPaidByUser,
   };
 };
 
@@ -40,6 +46,7 @@ const TravelDetail = ({ loaderData }: Route.ComponentProps) => {
   const user = loaderData.user as unknown as User & { accountId: string };
   const userId = user.accountId;
   const isCreatorTrip = tripCreator === userId;
+  const tripPaidByUser = loaderData.tripPaidByUser;
 
   const {
     name,
@@ -210,12 +217,24 @@ const TravelDetail = ({ loaderData }: Route.ComponentProps) => {
             <ButtonComponent
               className="button-class w-full cursor-pointer disabled:!cursor-not-allowed disabled:opacity-70"
               type="submit"
-              disabled={!paymentLink || isCreatorTrip}
+              disabled={!paymentLink || isCreatorTrip || tripPaidByUser}
             >
-              <span className="p-16-semibold py-2 text-white">
-                Pay to join the trip
-              </span>
-              <span className="price-pill">{estimatedPrice}</span>
+              {tripPaidByUser ? (
+                <span className="p-16-semibold py-2 text-white">
+                  You Made Payment for this Trip Already
+                </span>
+              ) : isCreatorTrip ? (
+                <span className="p-16-semibold py-2 text-white">
+                  You are the Moderator of this Trip
+                </span>
+              ) : (
+                <>
+                  <span className="p-16-semibold py-2 text-white">
+                    Pay to join the trip
+                  </span>
+                  <span className="price-pill">{estimatedPrice}</span>
+                </>
+              )}
             </ButtonComponent>
           </a>
         </section>

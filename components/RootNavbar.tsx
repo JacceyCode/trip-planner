@@ -39,10 +39,16 @@ const RootNavbar = () => {
         </Link>
 
         <aside>
+          <Link
+            to="/travel/paid-trips"
+            className="text-sm md:text-xl text-nowrap font-semibold text-dark-100 hover:underline"
+          >
+            Paid Trips
+          </Link>
           {user.status === "admin" && (
             <Link
               to="/dashboard"
-              className="text-base font-medium text-dark-100"
+              className="text-sm md:text-xl text-nowrap font-semibold text-dark-100 hover:underline"
             >
               Admin Panel
             </Link>
