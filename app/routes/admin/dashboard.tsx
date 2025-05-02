@@ -40,7 +40,7 @@ export const clientLoader = async () => {
     getAllTrips(4, 0),
     getUserGrowthPerDay(),
     getTripsByTravelStyle(),
-    getAllUsers(4, 0),
+    getAllUsers(5, 0),
   ]);
 
   const allTrips = trips.allTrips.map(({ $id, tripDetails, imageUrls }) => ({

@@ -72,7 +72,7 @@ const PaidTrips = ({ loaderData }: Route.ComponentProps) => {
           />
         </>
       ) : (
-        <div className="flex items-center justify-center gap-3 text-xl font-semibold text-dark-100">
+        <div className="flex flex-col md:flex-row items-center justify-center gap-3 text-xl font-semibold text-dark-100">
           <h3>No Trips paid for yet.</h3>
           <Link to="/" className="text-blue-700 hover:underline">
             Explore Tour Page
