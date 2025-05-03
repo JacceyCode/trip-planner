@@ -23,7 +23,7 @@ export default defineConfig((config) => {
       reactRouter(),
       sentryReactRouter(sentryConfig, config),
     ],
-    sentryConfig, // Also pass the config here!
+    sentryConfig,
     ssr: {
       noExternal: [/@syncfusion/],
     },
