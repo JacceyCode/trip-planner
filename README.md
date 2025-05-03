@@ -1,24 +1,83 @@
-# Welcome to React Router!
+# TourPlan
 
-A modern, production-ready template for building full-stack React applications using React Router.
+A modern, full-stack trip planning application built with Vite, React Router 7, TypeScript, and TailwindCSS. This project was inspired by a YouTube tutorial and enhanced with additional features and functionality.
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router-templates/tree/main/default)
+## Live Demo
+
+Check out the live application at: [TourPlan](https://my-tour-planner-three.vercel.app)
+
+## Learning Resources
+
+This project was initially developed following the tutorial: [Build a Travel Website with React](https://www.youtube.com/watch?v=xZ1ba-RLrjo)
+
+The project was then expanded using the `figma` file and `github repository` provided through this [link](https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqa3QtQ2Z1RG9KSnpFZi1oOXNLVC1XSkQ0S1ZZQXxBQ3Jtc0tuOWpsRTM5M0JuWXQtR1ltRG11R3BWQXBRbk9fT2RQQ21MLXlkYVAwVXhCdm03OWpjbFNJQWs3Mi0zQ0k0VEt5T1lHSHVOTkpSa01CS0Z0aUI5ckV1OHdHYU95c0U5OGhfUGg5TW1PU2N4aTN1NHRBRQ&q=https%3A%2F%2Fjsm.dev%2Ftourvisto-kit&v=xZ1ba-RLrjo).
 
 ## Features
 
-- 🚀 Server-side rendering
+- 🚀 Server-side rendering with React Router
 - ⚡️ Hot Module Replacement (HMR)
 - 📦 Asset bundling and optimization
 - 🔄 Data loading and mutations
 - 🔒 TypeScript by default
 - 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
+- 📊 Interactive trip cards and statistics
+- 🗺️ Location-based trip information
+- 💳 Stripe payment integration with payment links
+- 📱 Responsive design for all devices
+- 👤 User trip creation and management
+- 💰 Paid trip tracking and analytics
+- 📈 Dashboard with trip statistics
+- 🛠️ Appwrite for database management
+- 🚨 Sentry for error tracking and monitoring
+
+## Tech Stack
+
+- **Frontend**: React 19, TypeScript, TailwindCSS
+- **Backend**: React Router 7
+- **Database**: Appwrite
+- **UI Components**: Syncfusion React Components
+- **Payment Processing**: Stripe
+- **Error Tracking**: Sentry
+- **Deployment**: Vercel
+
+## Key Components
+
+- **TripCard**: Displays trip information with image, location, price, and tags
+- **NavItems**: Navigation menu items
+- **RootNavbar**: Main navigation bar
+- **StatsCard**: Displays trip statistics
+- **InfoPill**: Small information display component
+- **MobileSidebar**: Mobile navigation menu
+- **GlobalSpinner**: Loading indicator
+- **CreateTrip**: User trip creation interface
+- **PaidTrips**: Payment processing and tracking
+- **Dashboard**: Trip analytics and statistics
+
+## Enhanced Features
+
+- **Trip Creation**: Users can create and manage their own trips
+- **Payment Integration**: Stripe payment links for each trip
+- **User Tracking**: Track paid users for each trip
+- **Trip Analytics**: Monitor trip creation and payment statistics
+- **Dashboard Updates**: Real-time statistics and analytics
 
 ## Getting Started
 
+### Prerequisites
+
+- Node.js (v20 or higher)
+- npm or yarn
+
 ### Installation
 
-Install the dependencies:
+1. Clone the repository:
+
+```bash
+git clone https://github.com/JacceyCode/tour-plan.git
+cd tour-plan
+```
+
+2. Install the dependencies:
 
 ```bash
 npm install
@@ -44,44 +103,21 @@ npm run build
 
 ## Deployment
 
-### Docker Deployment
+The application is deployed on Vercel. To deploy your own version:
 
-To build and run using Docker:
+1. Create a Vercel account
+2. Connect your GitHub repository
+3. Configure environment variables
+4. Deploy
 
-```bash
-docker build -t my-app .
+## Contributing
 
-# Run the container
-docker run -p 3000:3000 my-app
-```
+Feel free to submit issues and enhancement requests.
 
-The containerized application can be deployed to any platform that supports Docker, including:
+## License
 
-- AWS ECS
-- Google Cloud Run
-- Azure Container Apps
-- Digital Ocean App Platform
-- Fly.io
-- Railway
-
-### DIY Deployment
-
-If you're familiar with deploying Node applications, the built-in app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
-
-```
-├── package.json
-├── package-lock.json (or pnpm-lock.yaml, or bun.lockb)
-├── build/
-│   ├── client/    # Static assets
-│   └── server/    # Server-side code
-```
-
-## Styling
-
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
+This project is licensed under the MIT License.
 
 ---
 
-Built with ❤️ using React Router.
+Built with ❤️ by [@JacceyCode](https://github.com/JacceyCode) using React Router and inspired by [this tutorial](https://www.youtube.com/watch?v=xZ1ba-RLrjo).
