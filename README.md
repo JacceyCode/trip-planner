@@ -29,6 +29,7 @@ The project was then expanded using the `figma` file and `github repository` pro
 - 📈 Dashboard with trip statistics
 - 🛠️ Appwrite for database management
 - 🚨 Sentry for error tracking and monitoring
+- 🤖 Google Generative AI for intelligent trip plan generation
 
 ## Tech Stack
 
