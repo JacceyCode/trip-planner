@@ -11,23 +11,10 @@ import { Link, useNavigate } from "react-router";
 import { account } from "~/appwrite/client";
 import { comboBoxItems, selectItems } from "~/constants";
 import { world_map } from "~/constants/world_map";
-import { cn, formatKey } from "~/lib/utils";
+import { cn, formatKey, getCountries } from "~/lib/utils";
 import type { Route } from "./+types/create-travel";
 
-export const loader = async () => {
-  const response = await fetch("https://restcountries.com/v3.1/all");
-  if (!response.ok) {
-    throw new Error("Failed to fetch countries data");
-  }
-  const data = await response.json();
-
-  return data?.map((country: any) => ({
-    name: country.flag + country.name.common,
-    coordinates: country.latlng,
-    value: country.name.common,
-    openStreetMap: country.maps?.openStreetMap,
-  }));
-};
+export const loader = async () => getCountries();
 
 const CreateTravel = ({ loaderData }: Route.ComponentProps) => {
   const countries = loaderData as Country[];

@@ -68,3 +68,20 @@ export const formatKey = (key: keyof TripFormData) => {
     .replace(/([A-Z])/g, " $1")
     .replace(/^./, (str) => str.toUpperCase());
 };
+
+export const getCountries = async () => {
+  const response = await fetch(
+    "https://restcountries.com/v3.1/independent?status=true&fields=name,flag,latlng,maps"
+  );
+  if (!response.ok) {
+    throw new Error("Failed to fetch countries data");
+  }
+  const data = await response.json();
+
+  return data?.map((country: any) => ({
+    name: country.flag + country.name.common,
+    coordinates: country.latlng,
+    value: country.name.common,
+    openStreetMap: country.maps?.openStreetMap,
+  }));
+};
