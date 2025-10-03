@@ -121,4 +121,4 @@ This project is licensed under the MIT License.
 
 ---
 
-Built with ❤️ by [@JacceyCode](https://github.com/JacceyCode) using React Router and inspired by [this tutorial](https://www.youtube.com/watch?v=xZ1ba-RLrjo).
+Built with ❤️ by [@JacceyCode](https://github.com/JacceyCode) using React Router and inspired by [this tutorial](https://www.youtube.com/watch?v=xZ1ba-RLrjo). Thank you.
